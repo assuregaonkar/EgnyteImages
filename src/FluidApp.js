@@ -12,7 +12,7 @@ const FluidApp = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/experiment/:userId" element={<ExperimentPage />} />
+        <Route path="/experiment" element={<ExperimentPage />} />
       </Routes>
     </BrowserRouter>
   );

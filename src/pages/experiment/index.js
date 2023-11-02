@@ -1,3 +1,5 @@
+import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { Box, Tabs, Tab, Container, Typography } from "@mui/material";
 import Title from "../../components/title/title";
 import { useState } from "react";
@@ -22,22 +24,26 @@ function CustomTabPanel(props) {
 
 const ExperimentPage = ({ id, tabs }) => {
   const [value, setValue] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const experimentId = searchParams.get("id");
+
   const handleOnChange = (e, newValue) => {
     setValue(newValue);
   };
   return (
     <Container>
       <Header />
-      <Title title={`My Experiments ${id}`} weight={600} />
+      <Title title={`My Experiments ${experimentId}`} weight={600} />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleOnChange}
           aria-label="basic tabs example"
         >
-          {tabs.map((value) => (
-            <Tab key={value} label={value} />
-          ))}
+          {tabs.map((value, idx) => {
+            value = idx === 0 ? `${value} ${experimentId}` : value;
+            return <Tab key={value} label={value} />;
+          })}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -50,7 +56,7 @@ const ExperimentPage = ({ id, tabs }) => {
 ExperimentPage.defaultProps = {
   id: "2624",
   tabs: [
-    "Experiment 2624",
+    "Experiment",
     "Tissue Summary",
     "Notes",
     "Linked Experiments",

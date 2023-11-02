@@ -11,6 +11,7 @@ const colums = [
     label: "Experiment Id",
     type: "link",
     key: "exp_id",
+    prefix:'Exp_'
   },
   {
     label: "Experiment Title",
@@ -45,7 +46,7 @@ const colums = [
 ];
 const rows = [
   {
-    exp_id: "Exp_1111",
+    exp_id: "1111",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -55,7 +56,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1112",
+    exp_id: "1112",
     title: "dasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -65,7 +66,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1113",
+    exp_id: "1113",
     title: "casd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -75,7 +76,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1114",
+    exp_id: "1114",
     title: "rasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -85,7 +86,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1115",
+    exp_id: "1115",
     title: "isd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -95,7 +96,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1116",
+    exp_id: "1116",
     title: "odasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -105,7 +106,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1111",
+    exp_id: "1111",
     title: "pdasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -115,7 +116,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1117",
+    exp_id: "1117",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -125,7 +126,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1118",
+    exp_id: "1118",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -135,7 +136,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_1119",
+    exp_id: "1119",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -144,7 +145,7 @@ const rows = [
     exp_link: "link",
   },
   {
-    exp_id: "Exp_1110",
+    exp_id: "1110",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -154,7 +155,7 @@ const rows = [
     isEditable: true,
   },
   {
-    exp_id: "Exp_11",
+    exp_id: "11",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -163,7 +164,7 @@ const rows = [
     exp_link: "link",
   },
   {
-    exp_id: "Exp_12",
+    exp_id: "12",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -172,7 +173,7 @@ const rows = [
     exp_link: "link",
   },
   {
-    exp_id: "Exp_13",
+    exp_id: "13",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -181,7 +182,7 @@ const rows = [
     exp_link: "link",
   },
   {
-    exp_id: "Exp_114",
+    exp_id: "114",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",
@@ -190,7 +191,7 @@ const rows = [
     exp_link: "link",
   },
   {
-    exp_id: "Exp_15",
+    exp_id: "15",
     title: "aadasd",
     startDate: "2013-01-08",
     endDate: "2013-01-18",

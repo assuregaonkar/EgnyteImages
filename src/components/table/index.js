@@ -175,7 +175,7 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
     tableData[id][rowKey] = e.target.value;
     setTableRows(tableData);
   };
-  const CustomTableCell = (type, value, id, rowKey, row) => {
+  const CustomTableCell = (type, value, id, rowKey, row, prefix) => {
     if (type === "text" || type === "date") {
       return (
         <Input
@@ -184,14 +184,15 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
           onChange={(e) => handleChangeInput(e, id, rowKey, row)}
           sx={{ border: "1px solid black", padding: "4px" }}
           disableUnderline={true}
+          size="small"
         />
       );
     } else if (type === "label") {
-      return <Box>{value}</Box>;
+      return <span>{prefix}{value}</span>;
     } else if (type === "chips") {
       return <Lable color={color(value)} text={value} variant="outlined" />;
     } else if (type === "link") {
-      return <Link to={`experiment/${value}`}>{value}</Link>;
+      return <Link to={`experiment?id=${value}`}>{prefix}{value}</Link>;
     }
   };
   return (
@@ -259,7 +260,8 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
                               row[headerKeys[columId]],
                               rowidx,
                               headerKeys[columId],
-                              row
+                              row,
+                              colum.prefix
                             )}
                           </Box>
                         </TableCell>
