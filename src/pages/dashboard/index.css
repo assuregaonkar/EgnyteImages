@@ -1,0 +1,13 @@
+.dashboard-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem
+}
+
+.new-experiment-form {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #ffffff;
+}

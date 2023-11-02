@@ -1,0 +1,15 @@
+.experience-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 341px;
+  margin-bottom: 0.5rem;
+  place-items: baseline;
+}
+
+.experience-tab-container {
+  padding-left: 0 !important;
+}
+
+.print-table-title {
+  margin-top: 1rem !important;
+}

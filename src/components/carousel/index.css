@@ -1,0 +1,58 @@
+/* .carusel-root{
+    position: relative;
+}
+
+.carusel-root .control-prev, .carusel-root .control-next{
+    position: relative;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    background-color: rgb(355,255,255,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.carusel-root .control-prev{
+    left:0
+}
+.carusel-root .control-next{
+    right: 0;
+} */
+
+.previous{
+    width: 20px;
+}
+.carousel-next-button, .carousel-previous-button {
+    position: absolute;
+    top: 50%;
+
+}
+.carousel-cards-container{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    scroll-behavior: smooth;
+    /* transition-timing-function: ease-out; */
+}
+
+/* .slider > li:first-child {
+    min-width: 5% !important
+}
+.slider > li:last-child {
+    min-width: 5% !important
+} */
+
+.slider{
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem !important;
+}
+
+.carusel-full-screen-button{
+    position: absolute !important;
+    z-index: 1;
+    right: 0;
+}
