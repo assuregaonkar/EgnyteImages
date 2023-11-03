@@ -128,7 +128,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
+const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [tableRows, setTableRows] = useState([]);
@@ -136,8 +136,8 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
   useEffect(() => {
     setTableRows([...rows]);
   }, [rows]);
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  //   const emptyRows =
+  //     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -188,11 +188,21 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
         />
       );
     } else if (type === "label") {
-      return <span>{prefix}{value}</span>;
+      return (
+        <span>
+          {prefix}
+          {value}
+        </span>
+      );
     } else if (type === "chips") {
       return <Lable color={color(value)} text={value} variant="outlined" />;
     } else if (type === "link") {
-      return <Link to={`experiment?id=${value}`}>{prefix}{value}</Link>;
+      return (
+        <Link to={`experiment?id=${value}`}>
+          {prefix}
+          {value}
+        </Link>
+      );
     }
   };
   return (
@@ -271,13 +281,13 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
                 </TableRow>
               );
             })}
-            {emptyRows > 0 && (
+            {/* {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
-            )}
+            )} */}
           </TableBody>
-          {showPager && (
+          {tableRows.length > 5 && (
             <TableFooter>
               <TableRow>
                 <TablePagination
@@ -304,17 +314,20 @@ const RactTable = ({ colums, showPager, rows, onRowAdd, isExpandable }) => {
           )}
         </Table>
       </TableContainer>
-      <Box className="add-new-row-button-wrapper">
-        <IconButton className="add-new-row-button" onClick={onRowAdd}>
-          <AddOutlined />
-        </IconButton>
-      </Box>
+      {showAddMore ? (
+        <Box className="add-new-row-button-wrapper">
+          <IconButton className="add-new-row-button" onClick={onRowAdd}>
+            <AddOutlined />
+          </IconButton>
+        </Box>
+      ) : null}
     </Box>
   );
 };
 
 RactTable.defaultProps = {
   showPager: true,
+  showAddMore: false,
 };
 
 export default RactTable;

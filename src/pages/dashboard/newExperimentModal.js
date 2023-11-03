@@ -63,6 +63,12 @@ const NewExperiment = ({ handleSave }) => {
             onChange={(e) => handleOnChange(e)}
           />
           <TextField
+            label="DYE"
+            size="small"
+            name="dye"
+            onChange={(e) => handleOnChange(e)}
+          />
+          <TextField
             label="Start Date"
             type="date"
             value={expDetails.startDate}

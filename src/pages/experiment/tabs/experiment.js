@@ -4,42 +4,16 @@ import Title from "../../../components/title/title";
 import RactTable from "../../../components/table";
 import "./index.css";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import { colums } from "./constant";
+import { printColums, tissueColums } from "./constant";
 import Carousel from "../../../components/carousel";
+import tableData from '../index.json'
 
-const Experiment = ({ experimentStates }) => {
-  const [prints, setPrints] = useState(0);
+const Experiment = ({ experimentStates, experimentId }) => {
+  const [prints, setPrints] = useState(tableData[experimentId].print);
   const [graphData, setGraphData] = useState([]);
-  const [printRow, setPrintRow] = useState([
-    {
-      id: "#",
-      date: "2013-01-08",
-      geomentry: "Initial State",
-      fixture: "Initial State",
-      cm_name: "Initial State",
-      cf_name: "Initial State",
-    },
-  ]);
-  const [tissueRow, setTissueRow] = useState([
-    {
-      id: "#",
-      date: "2013-01-08",
-      geomentry: "Initial State",
-      fixture: "Initial State",
-      cm_name: "Initial State",
-      cf_name: "Initial State",
-    },
-  ]);
-  const [fixRow, setFixRow] = useState([
-    {
-      id: "#",
-      date: "2013-01-08",
-      geomentry: "Initial State",
-      fixture: "Initial State",
-      cm_name: "Initial State",
-      cf_name: "Initial State",
-    },
-  ]);
+  const [printRow, setPrintRow] = useState(tableData[experimentId].print_row);
+  const [tissueRow, setTissueRow] = useState(tableData[experimentId].tissue_row);
+  const [fixRow, setFixRow] = useState(tableData[experimentId].fix_row);
   useEffect(() => {
     const fetchData = async () => {
       const fetchPlotlyData = [
@@ -82,6 +56,12 @@ const Experiment = ({ experimentStates }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    setPrintRow(tableData[experimentId].print_row);
+    setTissueRow(tableData[experimentId].tissue_row)
+    setFixRow(tableData[experimentId].fix_row)
+  }, [experimentId]);
+
   const handlePrintRow = () => {
     const row = [...printRow];
     const copyOfLastRow = row[row.length - 1];
@@ -98,23 +78,21 @@ const Experiment = ({ experimentStates }) => {
     const copyOfLastRow = row[row.length - 1];
     setFixRow([...row, { ...copyOfLastRow }]);
   };
+
   return (
     <React.Fragment>
       <Container className="experience-tab-container" sx={{ paddingLeft: 0 }}>
         <Box className="experience-details">
           <Title title="Experiment Link" />
-          <Select
+          <Input
             labelId="demo-select-small-label"
             id="demo-select-small"
-            value="initial_state"
+            value={tableData[experimentId].deops_link}
             label="Initial State"
             onChange={() => {}}
+            disabled={true}
             sx={{ border: "1px solid #757A87", borderRadius: "2px" }}
-          >
-            {experimentStates.map(({ label, value }) => (
-              <MenuList value={label}>{value}</MenuList>
-            ))}
-          </Select>
+          />
         </Box>
         <Box className="experience-details">
           <Title title="Prints" />
@@ -151,11 +129,11 @@ const Experiment = ({ experimentStates }) => {
           <Title title="Prints" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
-              colums={colums}
-              showPager={false}
+              colums={tableData[experimentId].print_column}
               onRowAdd={handlePrintRow}
               rows={printRow}
               isExpandable={true}
+              showAddMore= {true}
             />
           </Box>
         </Box>
@@ -163,11 +141,11 @@ const Experiment = ({ experimentStates }) => {
           <Title title="Tissue Summary" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
-              colums={colums}
-              showPager={false}
+              colums={tableData[experimentId].tissue_column}              
               rows={tissueRow}
               onRowAdd={handleTissueRow}
               isExpandable={true}
+              showAddMore= {true}
             />
           </Box>
         </Box>
@@ -175,11 +153,11 @@ const Experiment = ({ experimentStates }) => {
           <Title title="Fix Table" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
-              colums={colums}
-              showPager={false}
+              colums={tableData[experimentId].fix_column}              
               rows={fixRow}
               onRowAdd={handlerFixRow}
               isExpandable={true}
+              showAddMore= {true}
             />
           </Box>
         </Box>

@@ -1,4 +1,5 @@
 import React from "react";
+import {useSelector} from 'react-redux';
 import { useSearchParams } from "react-router-dom";
 import { Box, Tabs, Tab, Container, Typography } from "@mui/material";
 import Title from "../../components/title/title";
@@ -26,7 +27,7 @@ const ExperimentPage = ({ id, tabs }) => {
   const [value, setValue] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const experimentId = searchParams.get("id");
-
+  const [experiment] = useSelector(state=> state.activeExperiment.experiment.filter(value => value.exp_id === experimentId))
   const handleOnChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -47,14 +48,13 @@ const ExperimentPage = ({ id, tabs }) => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Experiment />
+        <Experiment data={experiment} experimentId={experimentId}/>
       </CustomTabPanel>
     </Container>
   );
 };
 
 ExperimentPage.defaultProps = {
-  id: "2624",
   tabs: [
     "Experiment",
     "Tissue Summary",
