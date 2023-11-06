@@ -18,7 +18,7 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3, pl: 0 }}>{children}</Box>}
+      {value === index && <Box >{children}</Box>}
     </div>
   );
 }
@@ -32,9 +32,10 @@ const ExperimentPage = ({ id, tabs }) => {
     setValue(newValue);
   };
   return (
-    <Container>
+    <React.Fragment >
       <Header />
-      <Title title={`My Experiments ${experimentId}`} weight={600} />
+      <Container>
+      <Title title={`My Experiments ${experimentId}`} size='large' />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -43,14 +44,15 @@ const ExperimentPage = ({ id, tabs }) => {
         >
           {tabs.map((value, idx) => {
             value = idx === 0 ? `${value} ${experimentId}` : value;
-            return <Tab key={value} label={value} />;
+            return <Tab sx={{fontSize:'0.875rem', color: '#000000', textTransform: 'none'}} key={value} label={value} />;
           })}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Experiment data={experiment} experimentId={experimentId}/>
       </CustomTabPanel>
-    </Container>
+      </Container>
+    </React.Fragment>
   );
 };
 

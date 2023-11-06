@@ -5,8 +5,9 @@ import RactTable from "../../../components/table";
 import "./index.css";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { printColums, tissueColums } from "./constant";
-import Carousel from "../../../components/carousel";
 import tableData from '../index.json'
+import GraphCarousel from "./graphCarousel";
+import ImagePhaseCarousel from "../../../components/carousel/imagePhase";
 
 const Experiment = ({ experimentStates, experimentId }) => {
   const [prints, setPrints] = useState(tableData[experimentId].print);
@@ -83,7 +84,7 @@ const Experiment = ({ experimentStates, experimentId }) => {
     <React.Fragment>
       <Container className="experience-tab-container" sx={{ paddingLeft: 0 }}>
         <Box className="experience-details">
-          <Title title="Experiment Link" />
+          <Title title="Experiment Link" size='small' />
           <Input
             labelId="demo-select-small-label"
             id="demo-select-small"
@@ -95,7 +96,7 @@ const Experiment = ({ experimentStates, experimentId }) => {
           />
         </Box>
         <Box className="experience-details">
-          <Title title="Prints" />
+          <Title title="Prints" size='small'/>
           <Box sx={{ display: "flex", gap: "1rem" }}>
             <Input
               type="text"
@@ -118,15 +119,15 @@ const Experiment = ({ experimentStates, experimentId }) => {
           </Box>
         </Box>
         <Box>
-          <Title title="Graph" />
+          <Title title="Graph" size='medium' />
           <Box>
             <div className="graph-container">
-              <Carousel data={graphData} />
+              <GraphCarousel data={graphData} />
             </div>
           </Box>
         </Box>
         <Box>
-          <Title title="Prints" />
+          <Title title="Prints" size='medium' />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
               colums={tableData[experimentId].print_column}
@@ -138,7 +139,7 @@ const Experiment = ({ experimentStates, experimentId }) => {
           </Box>
         </Box>
         <Box>
-          <Title title="Tissue Summary" />
+          <Title title="Tissue Summary" size='medium'/>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
               colums={tableData[experimentId].tissue_column}              
@@ -150,7 +151,7 @@ const Experiment = ({ experimentStates, experimentId }) => {
           </Box>
         </Box>
         <Box>
-          <Title title="Fix Table" />
+          <Title title="Fix Table" size='medium'/>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
               colums={tableData[experimentId].fix_column}              
@@ -159,6 +160,12 @@ const Experiment = ({ experimentStates, experimentId }) => {
               isExpandable={true}
               showAddMore= {true}
             />
+          </Box>
+        </Box>
+        <Box>
+          <Title title="Phase Images" size='medium'/>
+          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+            <ImagePhaseCarousel />
           </Box>
         </Box>
       </Container>

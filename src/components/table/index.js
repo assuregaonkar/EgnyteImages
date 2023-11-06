@@ -182,9 +182,11 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
           type={type}
           value={value}
           onChange={(e) => handleChangeInput(e, id, rowKey, row)}
-          sx={{ border: "1px solid black", padding: "4px" }}
+          sx={{ border: "1px solid black" }}
           disableUnderline={true}
           size="small"
+          className="sizeSmall"
+          id='table-row-input-fuild'
         />
       );
     } else if (type === "label") {
@@ -209,18 +211,18 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
     <Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableHead>
-            <TableRow>
+          <TableHead className="table-head">
+            <TableRow className="table-head-row">
               {colums.map((colum) => {
                 return (
-                  <TableCell key={colum.label}>
+                  <TableCell className="table-head-cell" key={colum.label}>
                     <b>{colum.label}</b>
                   </TableCell>
                 );
               })}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="table-body">
             {(rowsPerPage > 0 && tableRows
               ? tableRows?.slice(
                   page * rowsPerPage,
@@ -230,7 +232,7 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
             ).map((row, rowidx) => {
               const headerKeys = Object.keys(row);
               return (
-                <TableRow key={rowidx}>
+                <TableRow key={rowidx} className="table-row">
                   {colums.map((colum, columId) => {
                     return (
                       <React.Fragment>
@@ -256,11 +258,11 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
                           </Modal>
                         ) : null}
 
-                        <TableCell key={`${columId}-${rowidx}-1`}>
+                        <TableCell key={`${columId}-${rowidx}-1`} className="table-body-cell">
                           <Box sx={{ display: "flex", alignItems: "center" }}>
                             {columId === 0 && isExpandable && (
-                              <IconButton>
-                                <SettingsEthernetOutlined
+                              <IconButton size="small">
+                                <SettingsEthernetOutlined fontSize="small" sx={{width:'14px'}}
                                   onClick={() => setModalToggle(rowidx)}
                                 />
                               </IconButton>
@@ -317,7 +319,7 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
       {showAddMore ? (
         <Box className="add-new-row-button-wrapper">
           <IconButton className="add-new-row-button" onClick={onRowAdd}>
-            <AddOutlined />
+            <AddOutlined fontSize="small"/>
           </IconButton>
         </Box>
       ) : null}

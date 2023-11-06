@@ -6,10 +6,8 @@ import {
   FullscreenExitOutlined,
 } from "@mui/icons-material";
 import "./index.css";
-import BohekGraph from "../react-plotly/bohekGraph/bohekGraph";
-import ReactPlotlyGraph from "../react-plotly/plotlyGraph";
 import Modal from "../modal";
-const Carousel = ({ data }) => {
+const Carousel = ({ data, component }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalToggle, setModalToggle] = useState();
   const handleNext = () => {
@@ -23,86 +21,10 @@ const Carousel = ({ data }) => {
     }
   };
 
-  const carouselGraph = (graphData, hasForm) => {
-    const bohekGraphSize = hasForm ? 400 : 220;
-    const plotlyGraphSize = !hasForm && 220;
-    if (graphData?.doc?.roots) {
-      return (
-        <BohekGraph
-          data={graphData}
-          hasForm={hasForm}
-          width={bohekGraphSize}
-          height={bohekGraphSize}
-        />
-      );
-    } else if (graphData) {
-      return (
-        <ReactPlotlyGraph
-          data={graphData}
-          width={plotlyGraphSize}
-          height={plotlyGraphSize}
-          legend={{
-            x: 0,
-            y: 1.05,
-            xanchor: "left",
-            yanchor: "bottom",
-          }}
-          config={{
-            displayModeBar: false,
-          }}
-          margin={{
-            l: 40,
-            r: 40,
-            t: 10,
-          }}
-          hasForm={hasForm}
-        />
-      );
-    }
-  };
-  const carouselGraph1 = (graphData, hasForm) => {
-    const graphHeight = hasForm ? 400 : 220;
-    const graphWidth = hasForm ? 400 : 220;
-    if (graphData?.doc?.roots) {
-      return (
-        <BohekGraph
-          data={graphData}
-          hasForm={hasForm}
-          width={graphWidth}
-          height={graphHeight}
-        />
-      );
-    } else if (graphData) {
-      return (
-        <ReactPlotlyGraph
-          data={graphData}
-          width={graphWidth}
-          height={graphHeight}
-          legend={{
-            x: 0,
-            y: 1.05,
-            xanchor: "left",
-            yanchor: "bottom",
-          }}
-          config={{
-            displayModeBar: false,
-          }}
-          margin={{
-            l: 40,
-            r: 40,
-            t: 10,
-          }}
-          hasForm={hasForm}
-        />
-      );
-    }
-  };
-
   const handleModalOpen = (index) => {
     setModalToggle(index);
   };
   return (
-    // <Container>
     <Box
       p={1}
       sx={{
@@ -147,10 +69,10 @@ const Carousel = ({ data }) => {
                     isOpen={modalToggle === idx}
                     onClose={() => setModalToggle()}
                   >
-                    {carouselGraph1(graphData, true)}
+                    {component(graphData, true)}
                   </Modal>
                 ) : (
-                  carouselGraph(graphData, false)
+                  component(graphData, false)
                 )}
               </Paper>
             );

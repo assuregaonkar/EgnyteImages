@@ -246,12 +246,13 @@ const Dashboard = () => {
           title="Dashboard"
           hasTooltip={true}
           subHeading="Last update 3hrs ago"
+          size='large'
         />
       </Box>
       <hr />
       <Box>
         <div className="dashboard-heading">
-          <Title title="Experiments" />
+          <Title title="Experiments" size='large'/>
           <NewExperiment handleSave={handleSave} />
         </div>
         <Box>

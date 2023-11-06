@@ -13,11 +13,11 @@ const Title = ({ size, title, hasTooltip, weight, subHeading }) => {
       }}
       level="h1"
     >
-      <Typography mb={1} variant="button">
+      <Typography textTransform='none' fontWeight={weight} fontSize={size} mb={1} variant="button">
         {title}
       </Typography>
       {subHeading && (
-        <Typography ml={1} variant="caption">
+        <Typography fontSize='small' ml={1} variant="caption">
           {subHeading}
         </Typography>
       )}
@@ -28,9 +28,9 @@ const Title = ({ size, title, hasTooltip, weight, subHeading }) => {
 
 Title.defaultProps = {
   title: "Experiment",
-  size: 15,
+  size: 'small',
   hasTooltip: false,
-  weight: 500,
+  weight: 600,
   // subHeading: "Last update 3hrs ago",
 };
 export default Title;
