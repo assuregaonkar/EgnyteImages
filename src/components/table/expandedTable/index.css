@@ -1,0 +1,9 @@
+.table-form{
+  gap: 1rem;
+    padding: 0.5rem;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: overlay;
+    max-height: 80vh;
+    min-height: max-content;
+  }
