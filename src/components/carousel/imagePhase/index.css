@@ -1,0 +1,6 @@
+.carousel-image-phase{
+  border-radius: 8px;
+border: 3px solid #FFF;
+background: lightgray 50% / cover no-repeat;
+box-shadow: 0px 10px 8px 0px rgba(38, 38, 38, 0.20);
+}

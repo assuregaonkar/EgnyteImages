@@ -1,203 +1,39 @@
 {
   "1111": {
-    "print_row": [
-      {
-        "id": "130108P1",
-        "date": "2013-01-08",
-        "geomentry": "Initial State",
-        "fixture": "Initial State",
-        "cm_name": "Initial State",
-        "cf_name": "Initial State"
-      },
-      {
-        "id": "130108P2",
-        "date": "2013-01-08",
-        "geomentry": "Initial State",
-        "fixture": "Initial State",
-        "cm_name": "Initial State",
-        "cf_name": "Initial State"
-      }
-    ],
-    "print_column": [
-      {
-        "label": "Print Id",
-        "type": "text",
-        "key": "id"
-      },
-      {
-        "label": "Print Date",
-        "type": "date",
-        "key": "date"
-      },
-      {
-        "label": "Geomentry",
-        "type": "text",
-        "key": "geomentry"
-      },
-      {
-        "label": "Fixture",
-        "type": "text",
-        "key": "fixture"
-      },
-      {
-        "label": "CM Name",
-        "type": "text",
-        "key": "cm_name"
-      },
-      {
-        "label": "CF Name",
-        "type": "text",
-        "key": "cf_name"
-      }
-    ],
-    "tissue_row": [
-      {
-        "id": "130108P1T1",
-        "tissue_fail": "Initial State",
-        "tissue_finish": "",
-        "tissue_days": "Days",
-        "post": "Days",
-        "print_id": "130108P1",
-        "dyes": "Days",
-        "tissue_geo": "Days",
-        "trintment": "Initial State"
-      },
-      {
-        "id": "130108P1T2",
-        "tissue_fail": "Initial State",
-        "tissue_finish": "",
-        "tissue_days": "Days",
-        "post": "Days",
-        "print_id": "130108P1",
-        "dyes": "Days",
-        "tissue_geo": "Days",
-        "trintment": "Initial State"
-      },
-      {
-        "id": "130108P2T1",
-        "tissue_fail": "Initial State",
-        "tissue_finish": "",
-        "tissue_days": "Days",
-        "post": "Days",
-        "print_id": "130108P2",
-        "dyes": "Days",
-        "tissue_geo": "Days",
-        "trintment": "Initial State"
-      },
-      {
-        "id": "130108P2T2",
-        "tissue_fail": "Initial State",
-        "tissue_finish": "",
-        "tissue_days": "Days",
-        "post": "Days",
-        "print_id": "130108P2",
-        "dyes": "Days",
-        "tissue_geo": "Days",
-        "trintment": "Initial State"
-      }
-    ],
-    "tissue_column": [
-      {
-        "label": "Tissue Id",
-        "type": "text",
-        "key": "id"
-      },
-      {
-        "label": "Tissue Failure Mode",
-        "type": "text",
-        "key": "tissue_fail"
-      },
-      {
-        "label": "Tissue Finish",
-        "type": "date",
-        "key": "tissue_finish"
-      },
-      {
-        "label": "Tissue Days",
-        "type": "text",
-        "key": "tissue_days"
-      },
-      {
-        "label": "Post",
-        "type": "text",
-        "key": "post"
-      },
-      {
-        "label": "Print Id",
-        "type": "text",
-        "key": "print_id"
-      },
-      {
-        "label": "Dyes",
-        "type": "text",
-        "key": "dyes"
-      },
-      {
-        "label": "Tissue Geometry",
-        "type": "text",
-        "key": "tissue_geo"
-      },
-      {
-        "label": "Treatment",
-        "type": "text",
-        "key": "trintment"
-      }
-    ],
-    "fix_row": [
-      {
-        "id": "130108f1",
-        "date": "2013-01-08",
-        "drug": "Initial State",
-        "tissue_table": "Initial State",
-        "fix_number": "Initial State",
-        "start_time": 11,
-        "end_time": 12,
-        "status": "Initial State"
-      }
-    ],
-    "fix_column": [
-      {
-        "label": "Fix Id",
-        "type": "text",
-        "key": "id"
-      },
-      {
-        "label": "Fix Date",
-        "type": "date",
-        "key": "date"
-      },
-      {
-        "label": "Drug",
-        "type": "text",
-        "key": "drug"
-      },
-      {
-        "label": "Tissue Table",
-        "type": "text",
-        "key": "tissue_table"
-      },
-      {
-        "label": "Fix Number",
-        "type": "text",
-        "key": "fix_number"
-      },
-      {
-        "label": "Start Time",
-        "type": "text",
-        "key": "start_time"
-      },
-      {
-        "label": "End Time",
-        "type": "text",
-        "key": "end_time"
-      },
-      {
-        "label": "Status",
-        "type": "text",
-        "key": "status"
-      }
-    ],
+    "print_row": {
+      
+      "date": "2013-01-08",
+      "geomentry": "Initial State",
+      "fixture": "Initial State",
+      "cm_name": "Initial State",
+      "cf_name": "Initial State",
+      "id": "130108P1"
+    },
+    
+    "fix_row": [],
     "print": 2,
-    "deops_link": "http://localhost:3000/experiment?id=1111"
+    "deops_link": "http://localhost:3000/experiment?id=1111",
+    "date": "2013-01-08"
+  },
+  "print_row": {
+    "date": "2013-01-08",
+    "geomentry": "Initial State",
+    "fixture": "Initial State",
+    "cm_name": "Initial State",
+    "cf_name": "Initial State",
+    "id": "130108P1"
+  },
+  "tissue_row": {
+    "id": "130108P1T1",
+    "tissue_fail": "none",
+    "tissue_finish": "",
+    "tissue_days": "Days",
+    "post": "Days",
+    "print_id": "130108P1",
+    "dyes": "Days",
+    "tissue_geo": "Days",
+    "trintment": "Initial State"
   }
+
+
 }

@@ -1,152 +1,113 @@
-import React, { useEffect, useState } from "react";
-import { Button, Box, Container, IconButton, Grid } from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Button,
+  Box,
+  Container,
+  IconButton,
+  Grid,
+  Typography,
+  Icon,
+  CardMedia,
+} from "@mui/material";
 import {
   ArrowForwardIos,
   ArrowBackIos,
   FullscreenExitOutlined,
 } from "@mui/icons-material";
-
-const ImagePhaseCarousel = () => {
-  const [selectedDay, setSelectedDay] = useState(1);
+import "./index.css";
+import Modal from "../../modal";
+import CarouselView from "./carouselView";
+import ModalView from "./modalView";
+const ImagePhaseCarousel = ({ sorce }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [maxImages, setMaxImages] = useState([0, 7]);
-
-  useEffect(()=>{
-    console.log(currentIndex)
-    if(currentIndex === 0){
-      setMaxImages([0, 7])
-    } else if(currentIndex % 7 === 0 && currentIndex+7 <= images.length){
-      setMaxImages([currentIndex, currentIndex + 7]);
-    }else if (currentIndex === images.length-1 ||currentIndex % 7 === 0 && currentIndex+7 >= images.length) {
-      setMaxImages([images.length - 7, images.length]);
-    } 
-    // if (currentIndex + 7 > images.length) {
-    //   setMaxImages([images.length - 7, images.length]);
-    // } else {
-    //   setMaxImages([currentIndex, currentIndex + 7]);
-    // }
-  },[currentIndex])
-  const images = [
-    "images/t1.png",
-    "images/t2.png",
-    "images/t3.png",
-    "images/t4.png",
-    "images/t5.png",
-    "images/t6.png",
-    "images/t7.png",
-    "images/t8.png",
-    "images/t9.png",
-    "images/t10.png",
-    "images/t11.png",
-    "images/t12.png",
-  ];
+  const [modalToggle, setModalToggle] = useState();
 
   const handlePrevious = () => {
-    const index = currentIndex !== 0 ? currentIndex-1 : images.length-1
-    setCurrentIndex(index)
-    if(currentIndex === 0 || currentIndex % 7 === 0 && currentIndex-7 <= images.length){
-      setMaxImages([0, 7])
-    } else if(currentIndex % 7 === 0 && currentIndex-7 <= images.length){
-      setMaxImages([currentIndex, currentIndex + 7]);
-    }else if (currentIndex === images.length-1) {
-      setMaxImages([images.length - 7, images.length]);
-    } 
-
-    // setCurrentIndex((prev) => {
-    //   if (prev !== 0) {
-    //     return prev - 1;
-    //   } else {
-    //     return images.length-1;
-    //   }
-    // });
+    const index = currentIndex !== 0 ? currentIndex - 1 : sorce.length - 1;
+    setCurrentIndex(index);
   };
 
   const handleNext = () => {
-    const index = currentIndex !== images.length - 1 ? currentIndex+1 : 0
-    setCurrentIndex(index)
-    if(currentIndex === 0){
-      setMaxImages([0, 7])
-    } else if(currentIndex % 7 === 0 && currentIndex+7 <= images.length){
-      setMaxImages([currentIndex, currentIndex + 7]);
-    }else if (currentIndex === images.length-1 ||currentIndex % 7 === 0 && currentIndex+7 >= images.length) {
-      setMaxImages([images.length - 7, images.length]);
-    } 
-    // setCurrentIndex((prev) => {
-    //   if(prev !== images.length - 1 ){
-    //     return prev + 1
-    //   } else { 
-    //     return 0
-    //   }
-    // });
+    const index = currentIndex !== sorce.length - 1 ? currentIndex + 1 : 0;
+    setCurrentIndex(index);
   };
+  const handleModalOpen = (index) => {
+    setModalToggle(index);
+  };
+
+  const isVideo = (src) => {
+    if (src.indexOf('mp4') >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "3rem",
-        }}
-      >
-        {Array(14)
-          .fill(1)
-          .map((value, idx) => {
-            return (
-              <Button
-                sx={{
-                  textTransform: "none",
-                  color: selectedDay === idx + 1 ? "#ffffff" : "#000000",
-                  flexDirection: "column",
-                  borderRadius: "0.5rem",
-                  background: "#E6E7E9",
-                  padding: 0,
-                  marginRight: "2rem",
-                  minWidth: "41px",
-                  bgcolor: selectedDay === idx + 1 && "#1976D2",
-                }}
-                onClick={() => {
-                  setSelectedDay(idx + 1);
-                }}
-                variant="contained"
-                disableRipple={true}
-              >
-                <span>Day </span>
-                <span>{idx + 1}</span>
-              </Button>
-            );
-          })}
-      </Box>
-
       <Box display="flex" justifyContent="space-between">
-          <IconButton onClick={handlePrevious} sx={{ justifyContent: "flex-start" }}>
-            <ArrowBackIos
-              sx={{ width: "24px", height: "40px", color: "#000000" }}
-            />
-          </IconButton>
+        <IconButton
+          onClick={handlePrevious}
+          sx={{ justifyContent: "flex-start", borderRadius:0 }}
+        >
+          <ArrowBackIos
+            sx={{ width: "24px", height: "40px", color: "#000000" }}
+          />
+        </IconButton>
         <Grid
           container
           direction="row"
-          flexWrap="nowrap"
-          gap={1}
+          flexWrap="wrap"
           spacing={1}
           alignItems="flex-end"
+          justifyContent='center'
+
         >
-          {images.slice(...maxImages).map((image, index) => {
+          {sorce.map((image, index) => {
             return (
-              <Grid>
-                <img
-                  src={image}
-                  style={{
-                    width: index+maxImages[0] === currentIndex ? "180px" : "150px",
-                    height: index+maxImages[0] === currentIndex ? "129px" : "107px",
-                    transition: "width 0.5s",
+              <Grid key={index} sx={{ position: "relative" }}>
+                <IconButton
+                  onClick={() => handleModalOpen(index)}
+                  sx={{
+                    position: "absolute",
+                    color: "#ffffff",
+                    right: 0,
+                    cursor: "pointer",
+                    zIndex: 1,
+                    display:
+                    index === currentIndex ? "block" : "none",
                   }}
+                >
+                  <FullscreenExitOutlined />
+                </IconButton>
+                <ModalView 
+                  modalToggle={modalToggle}
+                  image={image}
+                  index={index}
+                  currentIndex={currentIndex}
+                  onClose={setModalToggle}
+                  isVideo={isVideo}
                 />
+                <CarouselView
+                  image={image}
+                  index={index}
+                  currentIndex={currentIndex}
+                  isVideo={isVideo}
+                  totalImages = {sorce}
+                />
+                {/* <Typography
+                  display="flex"
+                  justifyContent="center"
+                  fontSize="small"
+                  weight={400}
+                >
+                  {image.name}
+                </Typography> */}
               </Grid>
             );
           })}
         </Grid>
-        <IconButton sx={{ justifyContent: "flex-start" }} onClick={handleNext}>
+        <IconButton sx={{ justifyContent: "flex-start", borderRadius:0 }} onClick={handleNext}>
           <ArrowForwardIos
             sx={{ width: "24px", height: "40px", color: "#000000" }}
           />

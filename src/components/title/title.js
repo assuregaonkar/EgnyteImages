@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import ToolTip from "../tooltip";
-const Title = ({ size, title, hasTooltip, weight, subHeading }) => {
+const Title = ({ size, title, hasTooltip, weight, subHeading, justifyContent }) => {
   return (
     <Box
       sx={{
@@ -10,6 +10,7 @@ const Title = ({ size, title, hasTooltip, weight, subHeading }) => {
         marginTop: "1rem",
         display: "flex",
         alignItems: "baseline",
+        justifyContent: {justifyContent}
       }}
       level="h1"
     >
@@ -31,6 +32,7 @@ Title.defaultProps = {
   size: 'small',
   hasTooltip: false,
   weight: 600,
+  justifyContent: 'flex-start'
   // subHeading: "Last update 3hrs ago",
 };
 export default Title;

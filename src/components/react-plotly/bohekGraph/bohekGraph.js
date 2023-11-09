@@ -155,7 +155,6 @@ const BohekGraph = ({ height, width, legend, margin, data, hasForm }) => {
           }
           return acc;
         }, []);
-        console.log(baselineData);
         setGraphPlots([
           ...baselineData,
           ...error_lineData,

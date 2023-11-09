@@ -175,18 +175,20 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
     tableData[id][rowKey] = e.target.value;
     setTableRows(tableData);
   };
-  const CustomTableCell = (type, value, id, rowKey, row, prefix) => {
+  const CustomTableCell = (colum, value, id, rowKey, row, prefix) => {
+    const {type,option} = colum
     if (type === "text" || type === "date") {
       return (
         <Input
           type={type}
           value={value}
           onChange={(e) => handleChangeInput(e, id, rowKey, row)}
-          sx={{ border: "1px solid black" }}
+          // sx={{ border: "1px solid black" }}
           disableUnderline={true}
           size="small"
           className="sizeSmall"
-          id='table-row-input-fuild'
+          id="table-row-input-fuild"
+          sx={{minWidth:'70px'}}
         />
       );
     } else if (type === "label") {
@@ -200,22 +202,62 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
       return <Lable color={color(value)} text={value} variant="outlined" />;
     } else if (type === "link") {
       return (
-        <Link to={`experiment?id=${value}`}>
+        <Link to={`experiment/${value}?id=${value}`}>
           {prefix}
           {value}
         </Link>
       );
+    } else if (type === "select") {
+      return (
+        <FormControl sx={{ minWidth: 120 }} size="small" variant="standard">
+          <Select
+            id="table-row-input-fuild"
+            value={value}
+            fontSize="small"
+            onChange={(e) => handleChangeInput(e, id, rowKey, row)}
+            disableUnderline
+            sx={{
+              paddingTop: "0",
+              textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "pre",
+              minWidth:'120px',
+              maxWidth: '120px'
+            }}
+          >
+            {
+              option.map((({value, label}) =>(
+                <MenuItem value={value}>{label}</MenuItem>
+              )))
+            }
+            {/* <MenuItem value={"Initial State1"}>Initial State1</MenuItem>
+            <MenuItem value={"Initial State2"}>Initial State2</MenuItem>
+            <MenuItem value={"Initial State3"}>Initial State3</MenuItem> */}
+          </Select>
+        </FormControl>
+      );
+      // <Input
+      //     type={type}
+      //     value={value}
+      //     onChange={(e) => handleChangeInput(e, id, rowKey, row)}
+      //     sx={{ border: "1px solid black" }}
+      //     disableUnderline={true}
+      //     size="small"
+      //     className="sizeSmall"
+      //     id='table-row-input-fuild'
+      //   />
     }
   };
   return (
     <Box>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+        <Table  >
           <TableHead className="table-head">
             <TableRow className="table-head-row">
-              {colums.map((colum) => {
+              {colums.map((colum, idx) => {
                 return (
-                  <TableCell className="table-head-cell" key={colum.label}>
+                  <TableCell
+                    key={colum.label.split(" ").join("_")}
+                    className="table-head-cell"
+                  >
                     <b>{colum.label}</b>
                   </TableCell>
                 );
@@ -223,7 +265,7 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
             </TableRow>
           </TableHead>
           <TableBody className="table-body">
-            {(rowsPerPage > 0 && tableRows
+            {(rowsPerPage > 0 && tableRows.length
               ? tableRows?.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
@@ -235,7 +277,7 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
                 <TableRow key={rowidx} className="table-row">
                   {colums.map((colum, columId) => {
                     return (
-                      <React.Fragment>
+                      <React.Fragment key={columId + rowidx}>
                         {modalToggle >= 0 ? (
                           <Modal
                             isOpen={modalToggle === rowidx}
@@ -258,20 +300,27 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
                           </Modal>
                         ) : null}
 
-                        <TableCell key={`${columId}-${rowidx}-1`} className="table-body-cell">
+                        <TableCell
+                          key={`${columId}-${rowidx}-1`}
+                          className="table-body-cell"
+                        >
                           <Box sx={{ display: "flex", alignItems: "center" }}>
                             {columId === 0 && isExpandable && (
-                              <IconButton size="small">
-                                <SettingsEthernetOutlined fontSize="small" sx={{width:'14px'}}
-                                  onClick={() => setModalToggle(rowidx)}
+                              <IconButton
+                                size="small"
+                                onClick={() => setModalToggle(rowidx)}
+                              >
+                                <SettingsEthernetOutlined
+                                  fontSize="small"
+                                  sx={{ width: "14px" }}
                                 />
                               </IconButton>
                             )}
                             {CustomTableCell(
-                              colum.type,
-                              row[headerKeys[columId]],
+                              colum,
+                              row[colum.key],
                               rowidx,
-                              headerKeys[columId],
+                              colum.key,
                               row,
                               colum.prefix
                             )}
@@ -319,7 +368,7 @@ const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
       {showAddMore ? (
         <Box className="add-new-row-button-wrapper">
           <IconButton className="add-new-row-button" onClick={onRowAdd}>
-            <AddOutlined fontSize="small"/>
+            <AddOutlined fontSize="small" />
           </IconButton>
         </Box>
       ) : null}
