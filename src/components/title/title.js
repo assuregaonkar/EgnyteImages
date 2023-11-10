@@ -7,7 +7,7 @@ const Title = ({ size, title, hasTooltip, weight, subHeading, justifyContent }) 
       sx={{
         fontSize: size,
         fontWeight: weight,
-        marginTop: "1rem",
+        // marginTop: "1rem",
         display: "flex",
         alignItems: "baseline",
         justifyContent: {justifyContent}

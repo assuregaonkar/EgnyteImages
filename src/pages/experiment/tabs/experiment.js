@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container, Box, Select, MenuList, Input, Button } from "@mui/material";
+import {
+  Container,
+  Box,
+  Select,
+  MenuList,
+  Input,
+  Button,
+  Grid,
+} from "@mui/material";
 import Title from "../../../components/title/title";
 import RactTable from "../../../components/table";
 import "./index.css";
@@ -8,22 +16,20 @@ import {
   printColums,
   tissueColums,
   fixColumns,
-  images,
-  videos,
 } from "./constant";
 import tableData from "../index.json";
-import GraphCarousel from "./graphCarousel";
-import ImagePhaseCarousel from "../../../components/carousel/imagePhase";
 import moment from "moment";
+import GraphTabs from "./prints/graphs";
+import ImagePhase from "./imagePhase";
+import ImageTabs from "./prints/imagePhase";
 
 const Experiment = ({ experimentDetails, experimentId }) => {
   const [prints, setPrints] = useState(experimentDetails.prints);
   const [printTableRows, setPrintTableRows] = useState([]);
   const [tissueTableRow, setTissueTableRow] = useState([]);
   const [fixTableRow, setFixTableRow] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(0);
   useEffect(() => {
-    setPrints(experimentDetails.prints)
+    setPrints(experimentDetails.prints);
     const tissueRow = getDefaultTissueRow();
     setTissueTableRow(tissueRow);
   }, [experimentDetails]);
@@ -60,7 +66,7 @@ const Experiment = ({ experimentDetails, experimentId }) => {
     for (let i = 1; i <= prints; i++) {
       const printRow = { ...tableData.print_row };
       printRow.id = `${date}P${i}`;
-      printRow.date =experimentDetails.start_date;
+      printRow.date = experimentDetails.start_date;
       rows.push(printRow);
     }
     return rows;
@@ -77,48 +83,127 @@ const Experiment = ({ experimentDetails, experimentId }) => {
   };
   return (
     <React.Fragment>
-      <Container className="experience-tab-container" sx={{ paddingLeft: 0 }}>
-        <Box className="experience-details">
-          <Title title="Experiment Link" size="small" />
-          <Input
-            id="demo-select-small"
-            value={experimentDetails.exp_link}
-            label="Initial State"
-            onChange={() => {}}
-            disabled={true}
-            sx={{ border: "1px solid #757A87", borderRadius: "2px" }}
-          />
-        </Box>
-        <Box className="experience-details">
-          <Title title="Prints" size="small" />
-          <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Input
-              type="text"
-              value={prints}
-              onChange={(e) => setPrints(e.target.value)}
-              sx={{
-                border: "1px solid black",
-                borderRadius: "2px",
-                padding: "4px",
-                width: "55px",
-                height: "32px",
-                padding: "14px 12px 14px 16px",
-                borderRadius: "2px",
-                border: "1px solid #757A87",
-                gap: "8px",
-              }}
-              disableUnderline={true}
-            />
-            <SaveOutlinedIcon sx={{ fontSize: 35 }} />
-          </Box>
-        </Box>
+      <Container
+        className="experience-tab-container"
+        sx={{ marginTop: "1rem" }}
+      >
+        <div style={{ width: "68%" }}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: "1rem" }}
+          >
+            <Grid item xs={2}>
+              <Title
+                justifyContent="flex-end"
+                title="Experiment Title"
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.title}
+                label="Initial State"
+                onChange={() => {}}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+                disableUnderline={true}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Title
+                justifyContent="flex-end"
+                title="Dev-Ops Link"
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.exp_link}
+                label="Initial State"
+                onChange={() => {}}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+                disableUnderline={true}
+              />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: "1rem" }}
+          >
+            <Grid item xs={2}>
+              <Title justifyContent="flex-end" title="Dyes" size="small" />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.dye}
+                label="Initial State"
+                onChange={() => {}}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+                disableUnderline={true}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Title justifyContent="flex-end" title="Date" size="small" />
+            </Grid>
+            <Grid item xs={4} sx={{ display: "flex", gap: "0.5rem" }}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.start_date}
+                size="small"
+                onChange={() => {}}
+                type="date"
+                className="sizeSmall"
+                disableUnderline={true}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+              />
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.end_date}
+                size="small"
+                // label="Initial State"
+                onChange={() => {}}
+                type="date"
+                disableUnderline={true}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+              />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: "1rem" }}
+          >
+            <Grid item xs={2}>
+              <Title justifyContent="flex-end" title="Prints" size="small" />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                type="text"
+                value={prints}
+                id="experiment-information-small"
+                // onChange={(e) => setPrints(e.target.value)}
+                disableUnderline={true}
+                disabled={true}
+              />
+            </Grid>
+          </Grid>
+        </div>
+        
         <Box>
-          <Title title="Graph" size="medium" />
-          <Box>
-            <div className="graph-container">
-              {/* <GraphCarousel /> */}
-            </div>
-          </Box>
+          <Title title="The Graph" size="medium" />
+          <GraphTabs/>
         </Box>
         <Box>
           <Title title="Prints" size="medium" />
@@ -158,45 +243,7 @@ const Experiment = ({ experimentDetails, experimentId }) => {
         </Box>
         <Box>
           <Title title="Phase Images" size="medium" />
-          <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "3rem",
-          }}
-        >
-          {Array(14)
-            .fill(1)
-            .map((value, idx) => {
-              return (
-                <Button
-                  key={idx}
-                  sx={{
-                    textTransform: "none",
-                    color: selectedDay === idx ? "#ffffff" : "#000000",
-                    flexDirection: "column",
-                    borderRadius: "0.5rem",
-                    background: "#E6E7E9",
-                    padding: 0,
-                    marginRight: "2rem",
-                    minWidth: "41px",
-                    bgcolor: selectedDay === idx && "#1976D2",
-                  }}
-                  onClick={() => {
-                    setSelectedDay(idx);
-                  }}
-                  variant="contained"
-                  disableRipple={true}
-                >
-                  <span>Day </span>
-                  <span>{idx + 1}</span>
-                </Button>
-              );
-            })}
-        </Box>
-          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <ImagePhaseCarousel sorce={selectedDay === 0 ? images : videos} />
-          </Box>
+          <ImageTabs />
         </Box>
       </Container>
     </React.Fragment>
