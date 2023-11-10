@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Title from "../../components/title/title";
 import RactTable from "../../components/table";
 import Header from "../../components/header";
-import NewExperiment from "./newExperimentModal";
+// import NewExperiment from "../newExperiment";
 import "./index.css";
 import { activeExperiment } from "../../reducer/action";
+import { Link } from "react-router-dom";
 
 const colums = [
   {
@@ -23,17 +24,22 @@ const colums = [
   {
     label: "DYE",
     type: "label",
-    key: "dye",
+    key: "dye_info",
   },
   {
     label: "Start Date",
     type: "label",
-    key: "startDate",
+    key: "start_date",
+  },
+  {
+    label: "Print Date",
+    type: "label",
+    key: "print_date",
   },
   {
     label: "End Date",
     type: "label",
-    key: "endDate",
+    key: "end_date",
   },
   {
     label: "Collabarators",
@@ -43,7 +49,7 @@ const colums = [
   {
     label: "Print",
     type: "label",
-    key: "print",
+    key: "prints",
   },
   {
     label: "Experiment Link",
@@ -56,10 +62,11 @@ const rows = [
     exp_id: "1111",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -67,10 +74,11 @@ const rows = [
     exp_id: "1112",
     title: "dasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -78,10 +86,11 @@ const rows = [
     exp_id: "1113",
     title: "casd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -89,10 +98,11 @@ const rows = [
     exp_id: "1114",
     title: "rasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -100,10 +110,11 @@ const rows = [
     exp_id: "1115",
     title: "isd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -111,10 +122,11 @@ const rows = [
     exp_id: "1116",
     title: "odasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -122,10 +134,11 @@ const rows = [
     exp_id: "1111",
     title: "pdasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -133,10 +146,11 @@ const rows = [
     exp_id: "1117",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -144,10 +158,11 @@ const rows = [
     exp_id: "1118",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -155,20 +170,22 @@ const rows = [
     exp_id: "1119",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
   },
   {
     exp_id: "1110",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
     isEditable: true,
   },
@@ -176,50 +193,55 @@ const rows = [
     exp_id: "11",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
   },
   {
     exp_id: "12",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
   },
   {
     exp_id: "13",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
   },
   {
     exp_id: "114",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
   },
   {
     exp_id: "15",
     title: "aadasd",
     dye: "xyz",
-    startDate: "2013-01-08",
-    endDate: "2013-01-18",
+    start_date: "2013-01-08",
+    print_date: "2013-01-08",
+    end_date: "2013-01-18",
     collabarators: "joe",
-    print: 2,
+    prints: 2,
     exp_link: "link",
   },
 ];
@@ -227,17 +249,23 @@ const Dashboard = () => {
   const [tableRows, setTableRows] = useState(rows);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(activeExperiment(rows));
+    const fetchExperiment = async()=>{
+      const response = await fetch('http://127.0.0.1:5000/experiment_details');
+      const data = await response.json()
+      dispatch(activeExperiment(data));
+    }
+    fetchExperiment()
+    
   }, []);
 
   const experiment = useSelector((state) => state.activeExperiment.experiment);
 
-  const handleSave = (data) => {
-    const tableRow = [...experiment];
-    tableRow.unshift(data);
-    dispatch(activeExperiment(tableRow));
-    // setTableRows(tableRow);
-  };
+  // const handleSave = (data) => {
+  //   const tableRow = [...experiment];
+  //   tableRow.unshift(data);
+  //   dispatch(activeExperiment(tableRow));
+  //   // setTableRows(tableRow);
+  // };
   return (
     <Container>
       <Header />
@@ -253,7 +281,7 @@ const Dashboard = () => {
       <Box>
         <div className="dashboard-heading">
           <Title title="Experiments" size='large'/>
-          <NewExperiment handleSave={handleSave} />
+          <Link to='/add-new-experiment' >Add New Experiment</Link>
         </div>
         <Box>
           <RactTable rows={experiment} colums={colums} />

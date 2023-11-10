@@ -8,17 +8,17 @@ const GraphCarousel = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchPlotlyData = [
-        fetch("http://localhost:5000/calcium_trace_10s"),
-        fetch("http://localhost:5000/normalized_calcium_trace_1s"),
-        fetch("http://localhost:5000/f0_calcium_trace_1"),
-        fetch("http://localhost:5000/normalized_beat_frequency"),
-        fetch("http://localhost:5000/beat_frequency"),
-        fetch("http://localhost:5000/normalized_calcium_amplitude"),
+        fetch("http://localhost:5001/calcium_trace_10s"),
+        fetch("http://localhost:5001/normalized_calcium_trace_1s"),
+        fetch("http://localhost:5001/f0_calcium_trace_1"),
+        fetch("http://localhost:5001/normalized_beat_frequency"),
+        fetch("http://localhost:5001/beat_frequency"),
+        fetch("http://localhost:5001/normalized_calcium_amplitude"),
       ];
 
       const fetchBohekData = [
-        fetch("http://127.0.0.1:5000/verapamil_calcium_trace"),
-        fetch("http://127.0.0.1:5000/verapamil_normalized"),
+        fetch("http://127.0.0.1:5001/verapamil_calcium_trace"),
+        fetch("http://127.0.0.1:5001/verapamil_normalized"),
       ];
       try {
         const bohekResponse = await Promise.all(fetchBohekData);

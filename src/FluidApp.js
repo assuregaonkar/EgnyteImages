@@ -7,12 +7,14 @@ import "./fluidApp.css";
 import ExperimentPage from "./pages/experiment";
 import Dashboard from "./pages/dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NewExperiment from "./pages/newExperiment";
 const FluidApp = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/experiment" element={<ExperimentPage />} />
+        <Route path="/add-new-experiment" element={<NewExperiment />} />
+        <Route path="/experiment/:id" element={<ExperimentPage />} />
       </Routes>
     </BrowserRouter>
   );

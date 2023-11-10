@@ -13,3 +13,11 @@
 .print-table-title {
   margin-top: 1rem !important;
 }
+
+#experiment-information-small{
+  padding: 2px !important;
+  font-size: 14px !important;
+  border-radius: 2px;
+  border: 1px solid #757A87;
+  background:  #FFF;
+}

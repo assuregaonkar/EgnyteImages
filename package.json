@@ -17,6 +17,7 @@
     "ffmpeg-static": "^5.2.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "^0.0.1-security",
+    "moment": "^2.29.4",
     "node-cache": "^5.1.2",
     "node-cron": "^3.0.2",
     "papaparse": "^5.4.1",

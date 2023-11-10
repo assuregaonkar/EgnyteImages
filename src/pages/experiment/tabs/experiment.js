@@ -1,172 +1,249 @@
 import React, { useEffect, useState } from "react";
-import { Container, Box, Select, MenuList, Input, Paper } from "@mui/material";
+import {
+  Container,
+  Box,
+  Select,
+  MenuList,
+  Input,
+  Button,
+  Grid,
+} from "@mui/material";
 import Title from "../../../components/title/title";
 import RactTable from "../../../components/table";
 import "./index.css";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import { printColums, tissueColums } from "./constant";
-import tableData from '../index.json'
-import GraphCarousel from "./graphCarousel";
-import ImagePhaseCarousel from "../../../components/carousel/imagePhase";
+import {
+  printColums,
+  tissueColums,
+  fixColumns,
+} from "./constant";
+import tableData from "../index.json";
+import moment from "moment";
+import GraphTabs from "./prints/graphs";
+import ImagePhase from "./imagePhase";
+import ImageTabs from "./prints/imagePhase";
 
-const Experiment = ({ experimentStates, experimentId }) => {
-  const [prints, setPrints] = useState(tableData[experimentId].print);
-  const [graphData, setGraphData] = useState([]);
-  const [printRow, setPrintRow] = useState(tableData[experimentId].print_row);
-  const [tissueRow, setTissueRow] = useState(tableData[experimentId].tissue_row);
-  const [fixRow, setFixRow] = useState(tableData[experimentId].fix_row);
+const Experiment = ({ experimentDetails, experimentId }) => {
+  const [prints, setPrints] = useState(experimentDetails.prints);
+  const [printTableRows, setPrintTableRows] = useState([]);
+  const [tissueTableRow, setTissueTableRow] = useState([]);
+  const [fixTableRow, setFixTableRow] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      const fetchPlotlyData = [
-        fetch("http://localhost:5000/calcium_trace_10s"),
-        fetch("http://localhost:5000/normalized_calcium_trace_1s"),
-        fetch("http://localhost:5000/f0_calcium_trace_1"),
-        fetch("http://localhost:5000/normalized_beat_frequency"),
-        fetch("http://localhost:5000/beat_frequency"),
-        fetch("http://localhost:5000/normalized_calcium_amplitude"),
-      ];
-
-      const fetchBohekData = [
-        fetch("http://127.0.0.1:5000/verapamil_calcium_trace"),
-        fetch("http://127.0.0.1:5000/verapamil_normalized"),
-      ];
-      try {
-        const bohekResponse = await Promise.all(fetchBohekData);
-        const bohekData = await Promise.all(
-          bohekResponse.reduce((acc, response) => {
-            if (response.status === 200) {
-              acc.push(response.json());
-            }
-            return acc;
-          }, [])
-        );
-
-        const plotlyResponse = await Promise.all(fetchPlotlyData);
-        const plotlyData = await Promise.all(
-          plotlyResponse.reduce((acc, response) => {
-            if (response.status === 200) {
-              acc.push(response.json());
-            }
-            return acc;
-          }, [])
-        );
-
-        setGraphData([...bohekData, ...plotlyData]);
-      } catch (error) {}
-    };
-    fetchData();
-  }, []);
+    setPrints(experimentDetails.prints);
+    const tissueRow = getDefaultTissueRow();
+    setTissueTableRow(tissueRow);
+  }, [experimentDetails]);
 
   useEffect(() => {
-    setPrintRow(tableData[experimentId].print_row);
-    setTissueRow(tableData[experimentId].tissue_row)
-    setFixRow(tableData[experimentId].fix_row)
-  }, [experimentId]);
+    const printRows = getDefaultPrintRow();
+    setPrintTableRows([...printRows]);
+  }, [prints]);
 
   const handlePrintRow = () => {
-    const row = [...printRow];
+    const row = [...printTableRows];
     const copyOfLastRow = row[row.length - 1];
-    setPrintRow([...row, { ...copyOfLastRow }]);
+    setPrintTableRows([...row, { ...copyOfLastRow }]);
   };
 
   const handleTissueRow = () => {
-    const row = [...tissueRow];
+    const row = [...tissueTableRow];
     const copyOfLastRow = row[row.length - 1];
-    setTissueRow([...row, { ...copyOfLastRow }]);
+    setTissueTableRow([...row, { ...copyOfLastRow }]);
   };
   const handlerFixRow = () => {
-    const row = [...fixRow];
+    const row = [...fixTableRow];
     const copyOfLastRow = row[row.length - 1];
-    setFixRow([...row, { ...copyOfLastRow }]);
+    setFixTableRow([...row, { ...copyOfLastRow }]);
   };
 
+  const getTime = (date) => {
+    const time = new Date(date);
+    return moment(time.getTime()).format("YYMMDD");
+  };
+  const getDefaultPrintRow = () => {
+    const rows = [];
+    const date = getTime(experimentDetails?.start_date);
+    for (let i = 1; i <= prints; i++) {
+      const printRow = { ...tableData.print_row };
+      printRow.id = `${date}P${i}`;
+      printRow.date = experimentDetails.start_date;
+      rows.push(printRow);
+    }
+    return rows;
+  };
+  const getDefaultTissueRow = () => {
+    const rows = [];
+    const date = getTime(experimentDetails.start_date);
+    const tissueRow = { ...tableData.tissue_row };
+    tissueRow.id = `${date}T1P1`;
+    tissueRow.date = experimentDetails.start_datedate;
+    tissueRow.tissue_id = `${date}P1`;
+    rows.push(tissueRow);
+    return rows;
+  };
   return (
     <React.Fragment>
-      <Container className="experience-tab-container" sx={{ paddingLeft: 0 }}>
-        <Box className="experience-details">
-          <Title title="Experiment Link" size='small' />
-          <Input
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={tableData[experimentId].deops_link}
-            label="Initial State"
-            onChange={() => {}}
-            disabled={true}
-            sx={{ border: "1px solid #757A87", borderRadius: "2px" }}
-          />
-        </Box>
-        <Box className="experience-details">
-          <Title title="Prints" size='small'/>
-          <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Input
-              type="text"
-              value={prints}
-              onChange={(e) => setPrints(e.target.value)}
-              sx={{
-                border: "1px solid black",
-                borderRadius: "2px",
-                padding: "4px",
-                width: "55px",
-                height: "32px",
-                padding: "14px 12px 14px 16px",
-                borderRadius: "2px",
-                border: "1px solid #757A87",
-                gap: "8px",
-              }}
-              disableUnderline={true}
-            />
-            <SaveOutlinedIcon sx={{ fontSize: 35 }} />
-          </Box>
+      <Container
+        className="experience-tab-container"
+        sx={{ marginTop: "1rem" }}
+      >
+        <div style={{ width: "68%" }}>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: "1rem" }}
+          >
+            <Grid item xs={2}>
+              <Title
+                justifyContent="flex-end"
+                title="Experiment Title"
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.title}
+                label="Initial State"
+                onChange={() => {}}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+                disableUnderline={true}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Title
+                justifyContent="flex-end"
+                title="Dev-Ops Link"
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.exp_link}
+                label="Initial State"
+                onChange={() => {}}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+                disableUnderline={true}
+              />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: "1rem" }}
+          >
+            <Grid item xs={2}>
+              <Title justifyContent="flex-end" title="Dyes" size="small" />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.dye}
+                label="Initial State"
+                onChange={() => {}}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+                disableUnderline={true}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Title justifyContent="flex-end" title="Date" size="small" />
+            </Grid>
+            <Grid item xs={4} sx={{ display: "flex", gap: "0.5rem" }}>
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.start_date}
+                size="small"
+                onChange={() => {}}
+                type="date"
+                className="sizeSmall"
+                disableUnderline={true}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+              />
+              <Input
+                id="experiment-information-small"
+                value={experimentDetails.end_date}
+                size="small"
+                // label="Initial State"
+                onChange={() => {}}
+                type="date"
+                disableUnderline={true}
+                disabled={true}
+                sx={{ borderRadius: "2px" }}
+              />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{ marginBottom: "1rem" }}
+          >
+            <Grid item xs={2}>
+              <Title justifyContent="flex-end" title="Prints" size="small" />
+            </Grid>
+            <Grid item xs={4}>
+              <Input
+                type="text"
+                value={prints}
+                id="experiment-information-small"
+                // onChange={(e) => setPrints(e.target.value)}
+                disableUnderline={true}
+                disabled={true}
+              />
+            </Grid>
+          </Grid>
+        </div>
+        
+        <Box>
+          <Title title="The Graph" size="medium" />
+          <GraphTabs/>
         </Box>
         <Box>
-          <Title title="Graph" size='medium' />
-          <Box>
-            <div className="graph-container">
-              <GraphCarousel data={graphData} />
-            </div>
-          </Box>
-        </Box>
-        <Box>
-          <Title title="Prints" size='medium' />
+          <Title title="Prints" size="medium" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
-              colums={tableData[experimentId].print_column}
+              colums={printColums}
               onRowAdd={handlePrintRow}
-              rows={printRow}
+              rows={printTableRows}
               isExpandable={true}
-              showAddMore= {true}
+              showAddMore={true}
             />
           </Box>
         </Box>
         <Box>
-          <Title title="Tissue Summary" size='medium'/>
+          <Title title="Tissue Summary" size="medium" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
-              colums={tableData[experimentId].tissue_column}              
-              rows={tissueRow}
+              colums={tissueColums}
+              rows={tissueTableRow}
               onRowAdd={handleTissueRow}
               isExpandable={true}
-              showAddMore= {true}
+              showAddMore={true}
             />
           </Box>
         </Box>
         <Box>
-          <Title title="Fix Table" size='medium'/>
+          <Title title="Fix Table" size="medium" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <RactTable
-              colums={tableData[experimentId].fix_column}              
-              rows={fixRow}
+              colums={fixColumns}
+              rows={fixTableRow}
               onRowAdd={handlerFixRow}
               isExpandable={true}
-              showAddMore= {true}
+              showAddMore={true}
             />
           </Box>
         </Box>
         <Box>
-          <Title title="Phase Images" size='medium'/>
-          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <ImagePhaseCarousel />
-          </Box>
+          <Title title="Phase Images" size="medium" />
+          <ImageTabs />
         </Box>
       </Container>
     </React.Fragment>
