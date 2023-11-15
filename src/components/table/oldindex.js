@@ -18,18 +18,13 @@ import {
   FormControl,
   Input,
   Container,
-  Button,
-  TextareaAutosize,
 } from "@mui/material";
 import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
   UnfoldMoreOutlined,
   AddOutlined,
-  HideSource,
   SettingsEthernetOutlined,
-  ChatBubbleOutline,
-  ChatBubble,
 } from "@mui/icons-material";
 // import rows from "./constant";
 import "./index.css";
@@ -133,21 +128,11 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const RactTable = ({
-  colums,
-  showAddMore,
-  rows,
-  onRowAdd,
-  isHidable,
-  onSaveData,
-  ...rest
-}) => {
+const RactTable = ({ colums, showAddMore, rows, onRowAdd, isExpandable }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [tableRows, setTableRows] = useState([]);
-  const [hiddenRow, setHiddenRow] = useState([]);
-  const [hiddenRowToggle, setHiddenRowToggle] = useState(null);
-  const [commnet, setComment] = useState("");
+  const [modalToggle, setModalToggle] = useState();
   useEffect(() => {
     setTableRows([...rows]);
   }, [rows]);
@@ -191,7 +176,7 @@ const RactTable = ({
     setTableRows(tableData);
   };
   const CustomTableCell = (colum, value, id, rowKey, row, prefix) => {
-    const { type, option } = colum;
+    const {type,option} = colum
     if (type === "text" || type === "date") {
       return (
         <Input
@@ -203,7 +188,7 @@ const RactTable = ({
           size="small"
           className="sizeSmall"
           id="table-row-input-fuild"
-          sx={{ minWidth: "70px" }}
+          sx={{minWidth:'70px'}}
         />
       );
     } else if (type === "label") {
@@ -233,16 +218,16 @@ const RactTable = ({
             disableUnderline
             sx={{
               paddingTop: "0",
-              textOverflow: "ellipsis",
-              overflow: "hidden",
-              whiteSpace: "pre",
-              minWidth: "120px",
-              maxWidth: "120px",
+              textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "pre",
+              minWidth:'120px',
+              maxWidth: '120px'
             }}
           >
-            {option.map(({ value, label }) => (
-              <MenuItem value={value}>{label}</MenuItem>
-            ))}
+            {
+              option.map((({value, label}) =>(
+                <MenuItem value={value}>{label}</MenuItem>
+              )))
+            }
             {/* <MenuItem value={"Initial State1"}>Initial State1</MenuItem>
             <MenuItem value={"Initial State2"}>Initial State2</MenuItem>
             <MenuItem value={"Initial State3"}>Initial State3</MenuItem> */}
@@ -261,30 +246,10 @@ const RactTable = ({
       //   />
     }
   };
-
-  const handleHideRow = (rowIndex) => {
-    if (hiddenRow.includes(rowIndex)) {
-      const row = [...tableRows];
-      setHiddenRow((prev) => prev.filter((value) => value !== rowIndex));
-      row[rowIndex].commnet = "";
-      setTableRows(row);
-    } else {
-      setHiddenRow((prev) => [...prev, rowIndex]);
-    }
-  };
-
-  const handleSaveComment = (rowIndex) => {
-    const tableData = [...tableRows];
-    tableData[rowIndex].commnet = commnet;
-    setTableRows(tableData);
-    setComment();
-    setHiddenRowToggle();
-  };
-
   return (
     <Box>
       <TableContainer component={Paper}>
-        <Table>
+        <Table  >
           <TableHead className="table-head">
             <TableRow className="table-head-row">
               {colums.map((colum, idx) => {
@@ -297,13 +262,6 @@ const RactTable = ({
                   </TableCell>
                 );
               })}
-              {isHidable ? (
-                <TableCell className="table-head-cell sticky-checkbox">
-                  <Box sx={{ marginLeft: "1rem" }}>
-                    <b>Hide</b>
-                  </Box>
-                </TableCell>
-              ) : null}
             </TableRow>
           </TableHead>
           <TableBody className="table-body">
@@ -314,26 +272,63 @@ const RactTable = ({
                 )
               : rows
             ).map((row, rowidx) => {
-              const index = rowidx + page * 5;
+              const headerKeys = Object.keys(row);
               return (
-                <TableRow
-                  key={index}
-                  className={
-                    "table-row" + (hiddenRow.includes(index) ? " hide" : "")
-                  }
-                >
+                <TableRow key={rowidx} className="table-row">
                   {colums.map((colum, columId) => {
                     return (
-                      <React.Fragment key={columId + index}>
+                      <React.Fragment key={columId + rowidx}>
+                        {modalToggle >= 0 ? (
+                          <Modal
+                            isOpen={modalToggle === rowidx}
+                            onClose={() => setModalToggle()}
+                          >
+                            <ExpandedTable
+                            colums={colums}
+                            // row
+                            // colum={colum}
+                            value={row[colum.key]}
+                            rowidx={rowidx}
+                            columnKey={colum.key}
+                            row= {row}
+                            prefix={colum.prefix}
+                            CustomTableCell={CustomTableCell}
+                              // colums={colums}
+                              // row={ row[colum.key]}
+                              // columKey={colum.key}
+                              // CustomCell={CustomTableCell}
+                              // rowidx={rowidx}
+                            />
+                            {/* {CustomTableCell(
+                            colum.type,
+                            row[headerKeys[columId]],
+                            rowidx,
+                            headerKeys[columId],
+                            row
+                          )} */}
+                          </Modal>
+                        ) : null}
+
                         <TableCell
-                          key={`${columId}-${index}-1`}
+                          key={`${columId}-${rowidx}-1`}
                           className="table-body-cell"
                         >
                           <Box sx={{ display: "flex", alignItems: "center" }}>
+                            {columId === 0 && isExpandable && (
+                              <IconButton
+                                size="small"
+                                onClick={() => setModalToggle(rowidx)}
+                              >
+                                <SettingsEthernetOutlined
+                                  fontSize="small"
+                                  sx={{ width: "14px" }}
+                                />
+                              </IconButton>
+                            )}
                             {CustomTableCell(
                               colum,
                               row[colum.key],
-                              index,
+                              rowidx,
                               colum.key,
                               row,
                               colum.prefix
@@ -343,67 +338,6 @@ const RactTable = ({
                       </React.Fragment>
                     );
                   })}
-                  {isHidable ? (
-                    <TableCell
-                      className="table-head-cell sticky-checkbox sticky-row"
-                      key={`hide-row-${index}-1`}
-                    >
-                      <Button
-                        sx={{ textTransform: "none" }}
-                        onClick={() => handleHideRow(index)}
-                      >
-                        {hiddenRow.includes(index) ? "Unhide" : "Hide"}
-                      </Button>
-                      <IconButton
-                        onClick={() => setHiddenRowToggle(index)}
-                        disabled={!hiddenRow.includes(index)}
-                      >
-                        <ChatBubble sx={{ fontSize: "14px" }} />
-                      </IconButton>
-                    </TableCell>
-                  ) : null}
-
-                  {hiddenRowToggle >= 0 ? (
-                    <Modal
-                      isOpen={hiddenRowToggle === index}
-                      onClose={() => setHiddenRowToggle()}
-                    >
-                      <Box className="comment-modal">
-                        <div
-                          style={{
-                            height: "150px",
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: "1rem",
-                          }}
-                        >
-                          <TextareaAutosize
-                            className="comment-modal-text-area"
-                            maxRows={4}
-                            placeholder="Comment"
-                            name="comment"
-                            value={tableRows[index]?.commnet}
-                            onChange={(e) => setComment(e.target.value)}
-                          />
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: "1rem",
-                          }}
-                        >
-                          <Button
-                            variant="contained"
-                            onClick={() => handleSaveComment(index)}
-                            sx={{textTransform:'none'}}
-                          >
-                            save
-                          </Button>
-                        </div>
-                      </Box>
-                    </Modal>
-                  ) : null}
                 </TableRow>
               );
             })}
@@ -445,26 +379,6 @@ const RactTable = ({
           <IconButton className="add-new-row-button" onClick={onRowAdd}>
             <AddOutlined fontSize="small" />
           </IconButton>
-        </Box>
-      ) : null}
-
-      {tableRows.length ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: "1rem",
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={() => {
-              onSaveData(tableRows);
-            }}
-            sx={{textTransform:'none'}}
-          >
-            Save
-          </Button>
         </Box>
       ) : null}
     </Box>

@@ -8,13 +8,23 @@ import ExperimentPage from "./pages/experiment";
 import Dashboard from "./pages/dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NewExperiment from "./pages/newExperiment";
+import RactTable from "./components/table";
+import PrintTable from "./pages/experiment/tables/printTable";
 const FluidApp = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/add-new-experiment" element={<NewExperiment />} />
-        <Route path="/experiment/:id" element={<ExperimentPage />} />
+        <Route exact path="/experiment">
+        
+        <Route exact path="/experiment/:id" element={<ExperimentPage />}/>
+        <Route
+            path="table-view"
+            exact
+            element={<PrintTable isHidable={true}/>}
+          />
+          </Route>
       </Routes>
     </BrowserRouter>
   );

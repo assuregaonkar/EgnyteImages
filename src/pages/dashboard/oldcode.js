@@ -97,7 +97,6 @@ const NewExperiment = () => {
   };
   const onSaveExperiment = () => {
     if (expDetails.exp_id && expDetails.start_date && expDetails.title) {
-      console.log(JSON.stringify(expDetails));
       alert(JSON.stringify(expDetails));
     }
   };

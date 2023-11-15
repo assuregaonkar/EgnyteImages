@@ -1,0 +1,269 @@
+{
+  "print_table": {
+    "colums": [
+      {
+        "label": "Print id",
+        "type": "text",
+        "key": "id"
+      },
+      {
+        "label": "Print date",
+        "type": "date",
+        "key": "date"
+      },
+      {
+        "label": "geomentry",
+        "type": "text",
+        "key": "geomentry"
+      },
+      {
+        "label": "fixture",
+        "type": "text",
+        "key": "fixture"
+      },
+      {
+        "label": "CM Name",
+        "type": "text",
+        "key": "cm_name"
+      },
+      {
+        "label": "CF Name",
+        "type": "text",
+        "key": "cm_name"
+      },
+      {
+        "label": "CM Name0",
+        "type": "text",
+        "key": "cm_name0"
+      },
+      {
+        "label": "CF Name0",
+        "type": "text",
+        "key": "cm_name0"
+      },
+      {
+        "label": "Print id0",
+        "type": "text",
+        "key": "id0"
+      },
+      {
+        "label": "CM Name1",
+        "type": "text",
+        "key": "cm_name1"
+      },
+      {
+        "label": "CF Name1",
+        "type": "text",
+        "key": "cm_name1"
+      },
+      {
+        "label": "Print id1",
+        "type": "text",
+        "key": "id1"
+      }
+    ],
+    "row": [
+      {
+        "date": "2023-08-14",
+        "geomentry": "Initial State",
+        "fixture": "Initial State",
+        "cm_name": "Initial State",
+        "cm_name": "Initial State",
+        "id": "230814P1",
+
+        "cm_name0": "Initial State",
+        "cm_name0": "Initial State",
+        "id0": "230814P2",
+        "cm_name1": "Initial State",
+        "cm_name1": "Initial State",
+        "id1": "230814P2"
+      }
+    ]
+  },
+  "tissue_table": {
+    "colums": [
+      {
+        "label": "Tissue id",
+        "type": "text",
+        "key": "id"
+      },
+      {
+        "label": "Tissue Failure Mode",
+        "type": "select",
+        "key": "tissue_fail",
+        "option": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "snapped",
+            "label": "Snapped"
+          },
+          {
+            "value": "bad quality",
+            "label": "Bad Quality"
+          },
+          {
+            "value": "tissue disassembled",
+            "label": "Tissue Disassembled"
+          },
+          {
+            "value": "print fail",
+            "label": "Print Fail"
+          },
+          {
+            "value": "float",
+            "label": "Float"
+          },
+          {
+            "value": "human error",
+            "label": "human error"
+          },
+          {
+            "value": "contaminated",
+            "label": "Contaminated"
+          },
+          {
+            "value": "snapped during transfer",
+            "label": "Snapped During Transfer"
+          },
+          {
+            "value": "insufficient ink",
+            "label": "Insufficient Ink"
+          },
+          {
+            "value": "no contraction",
+            "label": "No Contraction"
+          }
+        ]
+      },
+      {
+        "label": "Tissue Finish",
+        "type": "date",
+        "key": "tissue_finish"
+      },
+      {
+        "label": "Tissue Days",
+        "type": "text",
+        "key": "tissue_days"
+      },
+      {
+        "label": "Post",
+        "type": "text",
+        "key": "post"
+      },
+      {
+        "label": "Print id",
+        "type": "text",
+        "key": "print_id"
+      },
+      {
+        "label": "Dyes",
+        "type": "text",
+        "key": "dyes"
+      },
+      {
+        "label": "Tissue Geometry",
+        "type": "text",
+        "key": "tissue_geo"
+      },
+      {
+        "label": "Treatment",
+        "type": "text",
+        "key": "trintment"
+      }
+    ],
+    "row": [
+      {
+        "id": "130108P1T1",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      },
+      {
+        "id": "130108P1T2",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      },
+      {
+        "id": "130108P2T1",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      },
+      {
+        "id": "130108P2T1",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      }
+    ]
+  },
+  "fix_table": {
+    "colums": [
+      {
+        "label": "Fix id",
+        "type": "text",
+        "key": "id"
+      },
+      {
+        "label": "Fix date",
+        "type": "date",
+        "key": "date"
+      },
+      {
+        "label": "Drug",
+        "type": "text",
+        "key": "drug"
+      },
+      {
+        "label": "Tissue Table",
+        "type": "text",
+        "key": "tissue_table"
+      },
+      {
+        "label": "Fix Number",
+        "type": "text",
+        "key": "fix_number"
+      },
+      {
+        "label": "Start Time",
+        "type": "text",
+        "key": "start_time"
+      },
+      {
+        "label": "End Time",
+        "type": "text",
+        "key": "end_time"
+      },
+      {
+        "label": "Status",
+        "type": "text",
+        "key": "status"
+      }
+    ],
+    "row":[]
+  }
+}

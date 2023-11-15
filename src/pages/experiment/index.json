@@ -23,17 +23,52 @@
     "cf_name": "Initial State",
     "id": "130108P1"
   },
-  "tissue_row": {
-    "id": "130108P1T1",
-    "tissue_fail": "none",
-    "tissue_finish": "",
-    "tissue_days": "Days",
-    "post": "Days",
-    "print_id": "130108P1",
-    "dyes": "Days",
-    "tissue_geo": "Days",
-    "trintment": "Initial State"
-  }
+  "tissue_row":  [
+      {
+        "id": "130108P1T1",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      },
+      {
+        "id": "130108P1T2",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      },
+      {
+        "id": "130108P2T1",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      },
+      {
+        "id": "130108P2T1",
+        "tissue_fail": "none",
+        "tissue_finish": "",
+        "tissue_days": "Days",
+        "post": "Days",
+        "print_id": "130108P1",
+        "dyes": "Days",
+        "tissue_geo": "Days",
+        "trintment": "Initial State"
+      }
+    ]
 
 
 }
