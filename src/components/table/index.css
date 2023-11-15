@@ -48,3 +48,43 @@
   border: 1px solid #757A87;
   background:  #FFF;
 }
+
+.sticky-checkbox{
+  position: sticky;
+  background: #E9EAEB;
+  right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  /* padding: 4px !important; */
+}
+
+.MuiTableRow-root>.sticky-checkbox:nth-child(odd) {
+  background-color: #F9F9FA;
+}
+
+.comment-modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 271px;
+  width: 642px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  flex-direction: column;
+}
+
+.comment-modal-text-area{
+  height: auto !important;
+  overflow: hidden;
+  width: 500px;
+}
+
+.sticky-row{
+  display: flex !important;
+  align-items: center !important;
+}
+
+.hide>*:nth-last-child(n+2){
+  pointer-events: none;
+  background-color: rgba(236, 240, 241, 0.5);
+}

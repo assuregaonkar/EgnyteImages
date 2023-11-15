@@ -12,26 +12,28 @@ import Title from "../../../components/title/title";
 import RactTable from "../../../components/table";
 import "./index.css";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import {
-  printColums,
-  tissueColums,
-  fixColumns,
-} from "./constant";
+import { printColums, tissueColums, fixColumns } from "./constant";
 import tableData from "../index.json";
 import moment from "moment";
 import GraphTabs from "./prints/graphs";
 import ImagePhase from "./imagePhase";
 import ImageTabs from "./prints/imagePhase";
+import {useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Experiment = ({ experimentDetails, experimentId }) => {
   const [prints, setPrints] = useState(experimentDetails.prints);
   const [printTableRows, setPrintTableRows] = useState([]);
   const [tissueTableRow, setTissueTableRow] = useState([]);
   const [fixTableRow, setFixTableRow] = useState([]);
+  const [isPrintTableExpadned, setIsPrintTableExpanded] = useState(false);
+  const [isTissueTableExpadned, setIsTissueTableExpanded] = useState(false);
+
+  const Navigate = useNavigate()
   useEffect(() => {
     setPrints(experimentDetails.prints);
-    const tissueRow = getDefaultTissueRow();
-    setTissueTableRow(tissueRow);
+    // const tissueRow = getDefaultTissueRow();
+    setTissueTableRow(tableData.tissue_row);
   }, [experimentDetails]);
 
   useEffect(() => {
@@ -71,16 +73,16 @@ const Experiment = ({ experimentDetails, experimentId }) => {
     }
     return rows;
   };
-  const getDefaultTissueRow = () => {
-    const rows = [];
-    const date = getTime(experimentDetails.start_date);
-    const tissueRow = { ...tableData.tissue_row };
-    tissueRow.id = `${date}T1P1`;
-    tissueRow.date = experimentDetails.start_datedate;
-    tissueRow.tissue_id = `${date}P1`;
-    rows.push(tissueRow);
-    return rows;
-  };
+  // const getDefaultTissueRow = () => {
+  //   const rows = [];
+  //   const date = getTime(experimentDetails.start_date);
+  //   const tissueRow = { ...tableData.tissue_row };
+  //   tissueRow.id = `${date}T1P1`;
+  //   tissueRow.date = experimentDetails.start_datedate;
+  //   tissueRow.tissue_id = `${date}P1`;
+  //   rows.push(tissueRow);
+  //   return rows;
+  // };
   return (
     <React.Fragment>
       <Container
@@ -200,26 +202,61 @@ const Experiment = ({ experimentDetails, experimentId }) => {
             </Grid>
           </Grid>
         </div>
-        
+
         <Box>
           <Title title="The Graph" size="medium" />
-          <GraphTabs/>
+          <GraphTabs />
         </Box>
         <Box>
-          <Title title="Prints" size="medium" />
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+              }}
+            >
+              <Title title="Prints" size="medium" />
+              <Button
+                variant="contained"
+                sx={{textTransform:'none'}}
+                onClick={() => {
+                  Navigate(`../table-view?exp_id=${experimentDetails.exp_id}&query=print_table`);
+                }}
+              >
+                Expand Table
+              </Button>
+            </Box>
             <RactTable
               colums={printColums}
               onRowAdd={handlePrintRow}
               rows={printTableRows}
               isExpandable={true}
-              showAddMore={true}
+              showAddMore={false}
             />
           </Box>
         </Box>
         <Box>
-          <Title title="Tissue Summary" size="medium" />
+          
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+          <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+              }}
+            >
+              <Title title="Tissue Summary" size="medium" />
+              <Button
+                variant="contained"
+                sx={{textTransform:'none'}}
+                onClick={() => {
+                  Navigate(`../table-view?exp_id=${experimentDetails.exp_id}&query=tissue_table`);
+                }}
+              >
+                Expand Table
+              </Button>
+            </Box>
             <RactTable
               colums={tissueColums}
               rows={tissueTableRow}
@@ -230,14 +267,32 @@ const Experiment = ({ experimentDetails, experimentId }) => {
           </Box>
         </Box>
         <Box>
-          <Title title="Fix Table" size="medium" />
+          
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+          <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+              }}
+            >
+              <Title title="Fix Table" size="medium" />
+              <Button
+                variant="contained"
+                sx={{textTransform:'none'}}
+                onClick={() => {
+                  Navigate(`../table-view?exp_id=${experimentDetails.exp_id}&query=fix_table`);
+                }}
+              >
+                Expand Table
+              </Button>
+            </Box>
             <RactTable
               colums={fixColumns}
               rows={fixTableRow}
               onRowAdd={handlerFixRow}
               isExpandable={true}
-              showAddMore={true}
+              showAddMore={false}
             />
           </Box>
         </Box>
